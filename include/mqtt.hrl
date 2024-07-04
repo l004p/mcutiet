@@ -39,6 +39,123 @@
     retain %% 1 
 }).
 
+-define(CONNECT_HEADER, 
+    #mqtt_header{
+        type=1,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(CONNACK_HEADER, 
+    #mqtt_header{
+        type=2,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(PUBLISH_HEADER, 
+    #mqtt_header{
+        type=3 %% other bits are variable
+}).
+
+-define(PUBACK_HEADER, 
+    #mqtt_header{
+        type=4,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(PUBREC_HEADER, 
+    #mqtt_header{
+        type=5,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(PUBREL_HEADER, 
+    #mqtt_header{
+        type=6,
+        dup=0,
+        qos=1,
+        retain=0
+}).
+
+-define(PUBCOMP_HEADER, 
+    #mqtt_header{
+        type=7,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(SUBSCRIBE_HEADER, 
+    #mqtt_header{
+        type=8,
+        dup=0,
+        qos=1,
+        retain=0
+}).
+
+-define(SUBACK_HEADER, 
+    #mqtt_header{
+        type=9,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(UNSUBSCRIBE_HEADER, 
+    #mqtt_header{
+        type=10,
+        dup=0,
+        qos=1,
+        retain=0
+}).
+
+-define(UNSUBACK_HEADER, 
+    #mqtt_header{
+        type=11,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(PINGREQ_HEADER, 
+    #mqtt_header{
+        type=12,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(PINGRESP_HEADER, 
+    #mqtt_header{
+        type=13,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(DISCONNECT_HEADER, 
+    #mqtt_header{
+        type=14,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
+-define(AUTH_HEADER, 
+    #mqtt_header{
+        type=15,
+        dup=0,
+        qos=0,
+        retain=0
+}).
+
 %% connect packet
 -record(mqtt_connect , {
     %% fixed header - 1 byte - connect is always 0x10
@@ -59,8 +176,8 @@
     password_flag,
     username_flag,
     %% double byte max time between 2 control packets
-    keepalive_MSB,
-    keepalive_LSB,
+    keepalive_msb,
+    keepalive_lsb,
     %% properties - X bytes
         %% 0x11 - session expiry interval - 4 byte integer
         %% 0x21 - receive maximum - 2 byte integer
@@ -86,5 +203,35 @@
     username,
     password
 }).
+
+
+%% connack packet
+
+%% publish packet
+
+%% pubrec packet
+
+%% puback packet
+
+%% pubrel packet
+
+%% pubcomp packet
+
+%% subscribe packet
+
+%% suback packet
+
+%% unsubscribe packet
+
+%% unsuback packet
+
+%% pingreq packet
+
+%% pingresp packet
+
+%% disconnect packet
+
+%% auth packet
+
 
 -endif.
