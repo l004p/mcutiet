@@ -39,6 +39,25 @@
     retain %% 1 
 }).
 
+%% 0x11 - session expiry interval - 4 byte integer
+%% 0x21 - receive maximum - 2 byte integer
+%% 0x27 - maximum packet size - 4 byte integer
+%% 0x22 - topic alias maximum - 2 byte integer
+%% 0x19 - request response info - byte
+%% 0x17 - request problem info - byte
+%% 0x26 - user property - UTF-8 string pair
+%% 0x15 - auth method - UTF-8 encoded string
+%% 0x16 - auth data - binary data
+-define(SESSION_EXPIRY_INTERVAL, 16#11).
+-define(AUTH_METHOD, 16#15).
+-define(AUTH_DATA, 16#16).
+-define(REQ_RES_INFO, 16#19).
+-define(REQ_PROBLEM_INFO, 16#17).
+-define(RECEIVE_MAXIMUM, 16#21).
+-define(TOPIC_ALIAS_MAX, 16#22).
+-define(USER_PROPERTY, 16#26).
+-define(MAX_PACKET_SIZE, 16#27).
+
 -define(CONNECT_HEADER, 
     #mqtt_header{
         type=1,
@@ -159,10 +178,9 @@
 %% connect packet
 -record(mqtt_connect , {
     %% fixed header - 1 byte - connect is always 0x10
-    header :: #mqtt_header{},
-    length_msb,
-    length_lsb,
     %% variable header
+    length_msb = 0, %% all strings have this before them
+    length_lsb = 4,
     %% protocol name - X bytes
     name = <<"MQTT">>,
     %% protocol version - 1 byte
